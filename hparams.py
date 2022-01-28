@@ -17,8 +17,8 @@ class Hparams:
     weights_path  : str  = osp.join(os.getcwd(), "weights")
 
     # train or predict 
-    train : bool = True
-    predict: bool = False
+    train : bool = False
+    predict: bool = True
 
     gpu: int = 0
     fast_dev_run: bool = False
@@ -38,8 +38,9 @@ class DatasetParams:
     """Parameters to use for the model"""
     # datamodule
     num_workers       : int         = 2         # number of workers for dataloadersint
-    root_dataset      : Optional[str] = osp.join(os.getcwd(), "assets")   # '/kaggle/working'
-    batch_size        : int         = 6        # batch_size
+    # root_dataset      : Optional[str] = osp.join(os.getcwd(), "assets")   # '/kaggle/working'
+    root_dataset      : Optional[str] = osp.join(os.getcwd(), "assets", "inputs")   # '/kaggle/working'
+    batch_size        : int         = 1        # batch_size
     input_size        : tuple       = (224, 224)   # image_size
 
 @dataclass
@@ -67,11 +68,12 @@ class CallBackParams:
 
 @dataclass
 class InferenceParams:
-    """Parameters to use for the logging callbacks"""
+    """Parameters to use for the inference"""
     model_name        : str         = "vit_small_patch16_224"
     pretrained        : bool        = True
     n_classes         : int         = 40 
-    ckpt_path: Optional[str] = None 
+    ckpt_path: Optional[str] = osp.join(os.getcwd(), "weights", "ViTsmall.ckpt") 
+    output_root :  str = osp.join(os.getcwd(), "output")
 
 @dataclass
 class Parameters:

@@ -3,6 +3,9 @@ from pytorch_lightning import LightningModule
 import timm
 from torch.optim import Adam
 import torch.nn as nn
+import numpy as np
+
+from utils.constant import ATTRIBUTES
 
 class Classification(LightningModule):
 
@@ -15,11 +18,11 @@ class Classification(LightningModule):
         self.attr_dict = attr_dict
 
         # optimizer parameters
-        self.lr = config.get('lr', None)
+        self.lr = config.lr if hasattr(config, 'lr') else None
 
         self.net = timm.create_model(config.model_name, 
                                     pretrained=config.pretrained, 
-                                    num_classes=config.num_classes)
+                                    num_classes=config.n_classes)
 
     def forward(self, x):
         x = self.net(x)
@@ -54,12 +57,18 @@ class Classification(LightningModule):
         return {"logits": logits}
 
     def predict_step(self, batch, batch_idx):
-        x = batch
+        x, img_name = batch
+
 
         logits = self(x)
-        preds = torch.round(nn.Sigmoid()(logits.detach()))
+        converted_logits = nn.Sigmoid()(logits.detach())
+        preds = torch.round(converted_logits)
 
-        return preds
+        converted_preds = preds.detach().cpu().numpy()
+        batch_converted_preds = []
+        for pred_batch in converted_preds:
+            batch_converted_preds.append([ATTRIBUTES[i] for i in np.where(pred_batch==1.0)[0]])
+        return img_name, preds, batch_converted_preds, converted_logits.cpu().numpy()
 
     def configure_optimizers(self):
         """defines model optimizer"""

@@ -4,9 +4,11 @@ from torchvision import transforms
 import os
 
 from datasets.celeba import MyCelebA
+from hparams import InferenceParams
+from datasets.inference_dataset import CustomImageDataset
 
 class CelebADataModule(LightningDataModule):
-    def __init__(self, config):
+    def __init__(self, config, train):
         super().__init__()
 
         self.root = config.root_dataset
@@ -14,12 +16,7 @@ class CelebADataModule(LightningDataModule):
         self.transform = self.get_transforms(config.input_size)
         self.num_workers = config.num_workers
 
-        with open(os.path.join(config.root, 'celeba/list_attr_celeba.txt'), 'r') as file:
-            for i, line in enumerate(file):
-                if i == 1:
-                    self.attr_dict = {
-                        i: line.split()[i] for i in range(len(line.split()))}
-                    break
+        self.attr_dict = None
 
     def get_transforms(self, input_size):
         mean = [0.485, 0.456, 0.406]
@@ -36,7 +33,7 @@ class CelebADataModule(LightningDataModule):
                     transforms.Normalize(mean, std),
                 ]
             ),
-            "val": transforms.Compose(
+            "val/test/pred": transforms.Compose(
                 [
                     transforms.Resize(input_size),
                     transforms.ToTensor(),
@@ -55,20 +52,19 @@ class CelebADataModule(LightningDataModule):
             self.val = MyCelebA(
                 self.root,
                 split="valid",
-                transform=self.transform["val"],
+                transform=self.transform["val/test/pred"],
             )
 
         if stage == "test":
             self.test = MyCelebA(
                 self.root,
                 split="test",
-                transform=self.transform["val"],
+                transform=self.transform["val/test/pred"],
             )
         if stage == "predict":
-            self.predict = MyCelebA(
+            self.predict = CustomImageDataset(
                 self.root,
-                split="test",
-                transform=self.transform["val"],
+                transform=self.transform["val/test/pred"],
             )
 
     def train_dataloader(self):
