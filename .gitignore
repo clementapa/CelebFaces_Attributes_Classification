@@ -130,3 +130,5 @@ dmypy.json
 *.ckpt
 *.zip
 assets/
+output/
+lightning_logs
