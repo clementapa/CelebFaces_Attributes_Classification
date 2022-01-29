@@ -1,9 +1,12 @@
 import json
-from datetime import datetime
 import os.path as osp
+from datetime import datetime
+from attr import attr
 
+import numpy as np
 from pytorch_lightning import Trainer
-from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, RichProgressBar, LearningRateMonitor
+from pytorch_lightning.callbacks import (EarlyStopping, LearningRateMonitor,
+                                         ModelCheckpoint, RichProgressBar)
 from pytorch_lightning.loggers import WandbLogger
 
 from datamodules.celebadatamodule import CelebADataModule
@@ -58,7 +61,7 @@ def main():
         trainer.fit(model, dataset_module)
 
     if config.hparams.predict:
-        output_dict = {"filenames":[], "logits":[], "converted_preds":[]}
+        output_dict = {"filenames":[], "logits":[], "converted_preds":[], "preds_with_conf":[]}
         model = Classification(config.inference_param, dataset_module.attr_dict)
         trainer = Trainer()
         predictions = trainer.predict(model, dataset_module, ckpt_path=config.inference_param.ckpt_path)
@@ -67,7 +70,7 @@ def main():
         create_dir(output_root)
         name_output = f"output_dict-{datetime.today().strftime('%Y-%m-%d-%H:%M:%S')}.json"
         output_full_path = osp.join(output_root, name_output)
-        
+
         for pred_batch in predictions:
             img_names, preds, converted_preds, converted_logits = pred_batch[0], pred_batch[1], pred_batch[2], pred_batch[3]
             # {"filenames":[], "logits":[], "converted_preds":[] }
@@ -75,6 +78,8 @@ def main():
                 output_dict['filenames'].append(img_name)
                 output_dict['logits'].append(converted_logits.tolist()[i])
                 output_dict['converted_preds'].append(converted_preds[i])
+                preds_with_conf = {ATTRIBUTES[idx]:round(converted_logits.tolist()[i][idx], 3) for idx in np.where(preds[i]==1.0)[0]}
+                output_dict['preds_with_conf'].append(preds_with_conf)
         json.dump(output_dict, open(output_full_path, 'w'))
 
 if __name__ == "__main__":
