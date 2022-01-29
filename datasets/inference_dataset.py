@@ -8,6 +8,7 @@ from utils.constant import ATTRIBUTES
 class CustomImageDataset(Dataset):
     def __init__(self, img_dir, transform=None):
         self.list_img = glob(os.path.join(img_dir, '*.png')) + glob(os.path.join(img_dir, '*.jpg'))
+        self.list_img.sort()
         self.transform = transform
         self.attr_dict = ATTRIBUTES
     
