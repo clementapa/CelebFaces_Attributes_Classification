@@ -62,7 +62,7 @@ def main():
     if config.hparams.predict:
         output_dict = {"filenames":[], "logits":[], "converted_preds":[], "preds_with_conf":[]}
         model = Classification(config.inference_param, dataset_module.attr_dict)
-        trainer = Trainer()
+        trainer = Trainer(gpus=config.hparams.gpu)
         predictions = trainer.predict(model, dataset_module, ckpt_path=config.inference_param.ckpt_path)
         
         output_root = config.inference_param.output_root
