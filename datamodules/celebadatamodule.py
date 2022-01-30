@@ -1,14 +1,12 @@
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 from torchvision import transforms
-import os
 
 from datasets.celeba import MyCelebA
-from hparams import InferenceParams
 from datasets.inference_dataset import CustomImageDataset
 
 class CelebADataModule(LightningDataModule):
-    def __init__(self, config, train):
+    def __init__(self, config):
         super().__init__()
 
         self.root = config.root_dataset

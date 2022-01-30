@@ -1,7 +1,6 @@
 import json
 import os.path as osp
 from datetime import datetime
-from attr import attr
 
 import numpy as np
 from pytorch_lightning import Trainer
@@ -20,7 +19,7 @@ from utils.utils_functions import create_dir
 def main():
     config = Parameters.parse()
 
-    dataset_module = CelebADataModule(config.data_param, train=config.hparams.train)
+    dataset_module = CelebADataModule(config.data_param)
 
     if config.hparams.train:
 
