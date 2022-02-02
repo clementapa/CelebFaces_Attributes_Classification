@@ -76,6 +76,14 @@ class InferenceParams:
     output_root :  str = osp.join(os.getcwd(), "output")
 
 @dataclass
+class SVMParams:
+    """Parameters to edit for SVM training"""
+    json_file           : str       = "outputs_stylegan/stylegan2/scores_stylegan2.json"
+    np_file             : str       = "outputs_stylegan/stylegan2/w.npy"
+    output_dir          : str       = "trained_boundaries"
+    latent_space_dim    : int       = 512
+
+@dataclass
 class Parameters:
     """base options."""
 
@@ -84,6 +92,7 @@ class Parameters:
     callback_param: CallBackParams  = CallBackParams()
     train_param   : TrainParams     = TrainParams()
     inference_param : InferenceParams = InferenceParams()
+    svm_params      : SVMParams = SVMParams()
 
     @classmethod
     def parse(cls):
