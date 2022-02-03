@@ -78,10 +78,11 @@ class InferenceParams:
 @dataclass
 class SVMParams:
     """Parameters to edit for SVM training"""
-    json_file           : str       = "outputs_stylegan/stylegan2/scores_stylegan2.json"
-    np_file             : str       = "outputs_stylegan/stylegan2/w.npy"
-    output_dir          : str       = "trained_boundaries"
+    json_file           : str       = "outputs_stylegan/stylegan3/scores_stylegan3.json"
+    np_file             : str       = "outputs_stylegan/stylegan3/z.npy"
+    output_dir          : str       = "trained_boundaries_z_sg3"
     latent_space_dim    : int       = 512
+    equilibrate         : bool      = False
 
 @dataclass
 class Parameters:

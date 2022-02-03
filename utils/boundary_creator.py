@@ -14,6 +14,7 @@ class BoundaryCreator(object):
         np_file = config.np_file
         json_file = config.json_file
         self.latent_space_dim = config.latent_space_dim
+        self.equilibrate = self.config.equilibrate
 
         with open(json_file) as json_data:
             self.attributes_dict = json.load(json_data)
@@ -28,22 +29,31 @@ class BoundaryCreator(object):
         output_dir = self.config.output_dir
 
         for i in tqdm(range(40)):
-            positive_samples, negative_samples = balace_input(self.X, self.y, i)
-            balanced_X = np.concatenate([positive_samples[0], negative_samples[0]], axis=0)
-            balanced_Y = np.concatenate([positive_samples[1], negative_samples[1]], axis=0)
+            if self.equilibrate:
+                positive_samples, negative_samples = balace_input(self.X, self.y, i)
+                balanced_X = np.concatenate([positive_samples[0], negative_samples[0]], axis=0)
+                balanced_Y = np.concatenate([positive_samples[1], negative_samples[1]], axis=0)
 
 
-            if len(balanced_Y) > 0:
-                clf = LinearSVC(random_state=0, tol=1e-5).fit(balanced_X, balanced_Y)
-                a = clf.coef_.reshape(1, self.latent_space_dim).astype(np.float32)
-                list_boundaries.append(a / np.linalg.norm(a))
+                if len(balanced_Y) > 0:
+                    clf = LinearSVC(random_state=0, tol=1e-5).fit(balanced_X, balanced_Y)
+                    a = clf.coef_.reshape(1, self.latent_space_dim).astype(np.float32)
+                    list_boundaries.append((a / np.linalg.norm(a), ATTRIBUTES[i]))
 
-                print("{} - Score on the whole set: {}".format(ATTRIBUTES[i], clf.score(self.X, self.y[:, i])))
-                print("{} - Accuracy on the train set: {}".format(ATTRIBUTES[i], clf.score(balanced_X, balanced_Y)))
+                    print("{} - Score on the whole set: {}".format(ATTRIBUTES[i], clf.score(self.X, self.y[:, i])))
+                    print("{} - Accuracy on the train set: {}".format(ATTRIBUTES[i], clf.score(balanced_X, balanced_Y)))
+                else:
+                    print("{} - Not enough samples!".format(ATTRIBUTES[i]))
             else:
-                print("{} - Not enough samples!".format(ATTRIBUTES[i]))
+                if np.sum(self.y[:, i]) > 0 and np.sum(self.y[:, i]) < self.y[:, i].shape[0]:
+                    clf = LinearSVC(random_state=0, tol=1e-5).fit(self.X, self.y[:, i])
+                    a = clf.coef_.reshape(1, self.latent_space_dim).astype(np.float32)
+                    list_boundaries.append((a / np.linalg.norm(a), ATTRIBUTES[i]))
+
+                    print("{} - Score on the whole set: {}".format(ATTRIBUTES[i], clf.score(self.X, self.y[:, i])))
 
         
-        for i, boundary in enumerate(list_boundaries):
-            file = os.path.join(output_dir, 'boundary_{}.npy'.format(ATTRIBUTES[i]))
+        for i, tuple_ in enumerate(list_boundaries):
+            boundary, attribute = tuple_
+            file = os.path.join(output_dir, 'boundary_{}.npy'.format(attribute))
             np.save(file, boundary)
