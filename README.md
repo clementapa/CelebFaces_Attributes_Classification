@@ -7,13 +7,15 @@ This repository is related to a project of the Introduction to Numerical Imaging
 
 It was entirely build from scratch and contains code in PyTorch Lightning to train and then use a neural network for image classification. We used it to create a classifier allowing semantic attributes classification of faces with the dataset CelebA-HQ. 
 
-<img src="assets/overview_celeba.png" width="400" height="221"/>
+<p float="center">
+    <img src="assets/overview_celeba.png" width="500" height="300"/>
+</p>
 
 > Some images of the CelebA-HQ dataset with attributes annotation.
 
 ## :chart_with_upwards_trend: Experiments :
 
-The dataset CelebA-HQ contains $\sim 200,000$ images of celebrities faces with 40 binary semantic attribute annotations such as smiling :grin: / not smiling :neutral_face: or bald :older_man: / not bald :man:. All attributes are a available [here](CelebFaces_Attributes_Classification/utils/constant.py). 
+The dataset CelebA-HQ contains $\sim 200,000$ images of celebrities faces with 40 binary semantic attribute annotations such as smiling :grin: / not smiling :neutral_face: or bald :older_man: / not bald :man:. All attributes are a available [here](https://github.com/clementapa/CelebFaces_Attributes_Classification/blob/master/utils/constant.py). 
 
 We have fine-tuned two classifier a ResNet-50 and a ViT small with 16x16 patches. Experiments are available on wandb [here](https://wandb.ai/attributes_classification_celeba/classif_celeba?workspace=user-clementapa). The training set contains 200,000 images, so only one epoch is sufficient to fine tune models to perform for attributes classification in CelebA-HQ. 
 
@@ -36,11 +38,11 @@ The entire code contains the following features :
 - Visualisation with the library Weights and Biases of several metrics of classification such as losses, accuracy, précision and recall. Also, prédictions of some training and validation images are logged on wandb to follow in real time the progress of the training. 
 - Inference of the model on your own images. You just have to add your images whose you want the model to infer and specify the path of the folder in the config file 
 
-The first goal of this repository was to use the InterFaceGAN method. So, there is a script train_svm.py which allows to train SVM for each semantic attributes to obtain boundaries and use them to control faces generation with InterfaceGAN in the following repository. 
+The first goal of this repository was to use the InterFaceGAN method. So, there is a script train_svm.py which allows to train SVM for each semantic attributes to obtain boundaries and use them to control faces generation with InterfaceGAN of [this repository](https://github.com/younesbelkada/interfacegan). 
 
 The all code is useable by just modifying the config file (config/hparams.py). You can launch a training of classifier, launch an inférence of a classifier (by using weigths of à trained classifier) and you can train SVMs to create boundaries. 
 
-## :dart: Structure of the code :
+## :dart: Code structure :
 The structure of repository is the following :
 
 ```
@@ -61,6 +63,7 @@ The structure of repository is the following :
 |   ├── callbacks.py
 |   ├── constant.py
 |   ├── utils_functions.py
+|
 ├── weights                     # put models weights here
 |
 ├── analyse_score_latent_space.ipynb  # notebook to analyse scores predicted
@@ -75,3 +78,39 @@ The structure of repository is the following :
 ```
 
 ## :hammer: Usage :
+
+### Train a classifier
+
+Parameters to put in ```hparams.py``:
+```
+    train : bool = True
+    predict: bool = False 
+```
+
+Then change ```Hparams```, ```TrainParams```, ```DatasetParams``` and ```CallBackParams``` with your needs.
+
+```
+python main.py
+```
+
+### Predict with the classifier
+
+Parameters to put in ```hparams.py``:
+```
+    train : bool = False
+    predict: bool = True 
+```
+
+Then change ```Hparams```, ```InferenceParams``` and ```DatasetParams``` with your needs.
+
+```
+python main.py
+```
+
+### Train SVM for InterFaceGAN
+
+Modify ```SVMParams``` in ```hparams.py``` with your needs.
+
+```
+python train_svm.py
+```
