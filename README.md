@@ -1,6 +1,6 @@
 # Attributes classification on CelebA dataset: Multi-label classification task
 
-Authors : Apavou Clément & Belkada Younes 
+> Authors: [Apavou Clément](https://github.com/clementapa) & [Belkada Younes](https://github.com/younesbelkada)
 
 ## :mag_right: Introduction :
 This repository is related to a project of the Introduction to Numerical Imaging (i.e, Introduction à l'Imagerie Numérique in French), given by the MVA Masters program at ENS-Paris Saclay.
@@ -11,7 +11,7 @@ It was entirely build from scratch and contains code in PyTorch Lightning to tra
     <img src="assets/overview_celeba.png" width="500" height="300"/>
 </p>
 
-> Some images of the CelebA-HQ dataset with attributes annotation.
+> Some images of the CelebA dataset with attributes annotation.
 
 ## :chart_with_upwards_trend: Experiments :
 
