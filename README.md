@@ -24,7 +24,7 @@ We have fine-tuned two classifier a ResNet-50 and a ViT small with 16x16 patches
 
 | Model| Accuracy | Weights   | Run  |
 |---|---|---|---|
-| [vit_small_patch16_224](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py) | 0.7622  | available soon   | [ViT_small](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/2xms83j2?workspace=user-clementapa) |
+| [vit_small_patch16_224](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py) | 0.7622  | available soon   | [ViT_small](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/23z2z7bn?workspace=user-clementapa) |
 | [resnet50](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/resnet.py) | 0.8055 | available soon  | [Resnet50](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/2xms83j2?workspace=user-clementapa)  | 
 
 </center>
