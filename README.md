@@ -5,7 +5,7 @@
 ## :mag_right: Introduction :
 This repository is related to a project of the Introduction to Numerical Imaging (i.e, Introduction à l'Imagerie Numérique in French), given by the MVA Masters program at ENS-Paris Saclay.
 
-It was entirely build from scratch and contains code in PyTorch Lightning to train and then use a neural network for image classification. We used it to create a classifier allowing semantic attributes classification of faces with the dataset CelebA-HQ. 
+It was entirely build from scratch and contains code in PyTorch Lightning to train and then use a neural network for image classification. We used it to create a classifier allowing semantic attributes classification of faces with the dataset CelebA. 
 
 <p float="center">
     <img src="assets/overview_celeba.png" width="500" height="300"/>
