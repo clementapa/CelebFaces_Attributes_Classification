@@ -11,13 +11,13 @@ It was entirely build from scratch and contains code in PyTorch Lightning to tra
     <img src="assets/overview_celeba.png" width="500" height="300"/>
 </p>
 
-> Some images of the CelebA dataset with attributes annotation.
+> Some images of the CelebA dataset with attribute annotation.
 
 ## :chart_with_upwards_trend: Experiments :
 
 The dataset CelebA-HQ contains approximately 200,000 images of celebrities faces with 40 binary semantic attribute annotations such as smiling :grin: / not smiling :neutral_face: or bald :older_man: / not bald :man:. All attributes are a available [here](https://github.com/clementapa/CelebFaces_Attributes_Classification/blob/master/utils/constant.py). 
 
-We have fine-tuned two classifier a ResNet-50 and a ViT small with 16x16 patches. Experiments are available on wandb [here](https://wandb.ai/attributes_classification_celeba/classif_celeba?workspace=user-clementapa). The training set contains 200,000 images, so only one epoch is sufficient to fine tune models to perform for attributes classification in CelebA-HQ. 
+We have fine-tuned two classifier a ResNet-50 and a ViT small with 16x16 patches. Experiments are available on wandb [here](https://wandb.ai/attributes_classification_celeba/classif_celeba?workspace=user-clementapa). The training set contains 200,000 images, so only one epoch is sufficient to fine tune models to perform for attributes classification on CelebA dataset. 
 
 ## :mag_right: Results:
 <center>
