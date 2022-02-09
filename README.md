@@ -7,7 +7,7 @@ This repository is related to a project of the Introduction to Numerical Imaging
 
 It was entirely build from scratch and contains code in PyTorch Lightning to train and then use a neural network for image classification. We used it to create a classifier allowing semantic attributes classification of faces with the dataset CelebA. 
 
-<p float="center">
+<p align="center">
     <img src="assets/overview_celeba.png" width="500" height="300"/>
 </p>
 
