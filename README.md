@@ -14,8 +14,9 @@ It was entirely build from scratch and contains code in PyTorch Lightning to tra
 <p align="center">
     <img src="assets/overview_celeba.png" width="500" height="300"/>
 </p>
-
-> Some images of the CelebA dataset with attribute annotation.
+<p align="center">
+<em> Some images of the CelebA dataset with attribute annotation.</em>
+</p>
 
 ## :chart_with_upwards_trend: Experiments :
 
