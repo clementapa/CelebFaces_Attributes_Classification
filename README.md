@@ -2,6 +2,10 @@
 
 > Authors: [Apavou Clément](https://github.com/clementapa) & [Belkada Younes](https://github.com/younesbelkada)
 
+![Python](https://img.shields.io/badge/Python-green.svg?style=plastic)
+![PyTorch](https://img.shields.io/badge/PyTorch-orange.svg?style=plastic)
+![PyTorch Lightning](https://img.shields.io/badge/PyTorch-Lightning-blueviolet.svg?style=plastic)
+
 ## :mag_right: Introduction :
 This repository is related to a project of the Introduction to Numerical Imaging (i.e, Introduction à l'Imagerie Numérique in French), given by the MVA Masters program at ENS-Paris Saclay.
 
