@@ -32,8 +32,8 @@ Experiments are available on wandb: [![](https://github.com/wandb/assets/blob/ma
     
 | Model| Accuracy | Weights   | Run  |
 |---|---|---|---|
-| [vit_small_patch16_224](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py) | 0.7622  | available soon   | [![](https://github.com/wandb/assets/blob/main/wandb-github-badge-gradient.svg)](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/23z2z7bn?workspace=user-clementapa) |
-| [resnet50](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/resnet.py) | 0.8055 | available soon  | [![](https://github.com/wandb/assets/blob/main/wandb-github-badge-gradient.svg)](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/2xms83j2?workspace=user-clementapa)  | 
+| [vit_small_patch16_224](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/vision_transformer.py) | 0.7622  | [here](https://wandb.ai/attributes_classification_celeba/classif_celeba/artifacts/model/model-23z2z7bn/v5/files)  | [![](https://github.com/wandb/assets/blob/main/wandb-github-badge-gradient.svg)](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/23z2z7bn?workspace=user-clementapa) |
+| [resnet50](https://github.com/rwightman/pytorch-image-models/blob/master/timm/models/resnet.py) | 0.8055 | not available  | [![](https://github.com/wandb/assets/blob/main/wandb-github-badge-gradient.svg)](https://wandb.ai/attributes_classification_celeba/classif_celeba/runs/2xms83j2?workspace=user-clementapa)  | 
     
 </p>
 
